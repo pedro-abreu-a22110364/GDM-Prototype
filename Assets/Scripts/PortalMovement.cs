@@ -9,11 +9,14 @@ public class PortalMovement : MonoBehaviour
     public float jumpForce = 5f; // Force applied for jumping
     public Transform platformBelow; // Reference to the below platform
     public Transform platformAbove; // Reference to the above platform
+    public float interactionRange = 10f; // Range to detect moveable objects
 
-    private bool isOnBelowPlatform = true; // Tracks which platform the object is on
+    private bool isOnBelowPlatform = false; // Tracks which platform the object is on
     private bool isPortaling = false; // Tracks if the object is currently portaling
     private Vector3 targetPosition; // Target position for the portal transition
     private bool isGrounded = true; // Tracks if the object is on the ground
+    private MoveableObject moveableObject; // Reference to the current moveable object
+    private Vector3 moveableObjectOffset; // Offset between the player and the moveable object
 
     void Update()
     {
@@ -32,6 +35,10 @@ public class PortalMovement : MonoBehaviour
         {
             Jump();
         }
+
+        // Detect and handle moveable objects
+        DetectMoveableObject();
+        HandleMoveableObjects();
 
         // Smoothly move the object during the portal transition
         if (isPortaling)
@@ -76,9 +83,53 @@ public class PortalMovement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Check if the object is grounded again
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Moveable_Object"))
         {
             isGrounded = true;
         }
+        
     }
+
+    void DetectMoveableObject()
+{
+    // Perform a sphere overlap to detect moveable objects within range
+    Collider[] colliders = Physics.OverlapSphere(transform.position, interactionRange);
+
+    foreach (Collider collider in colliders)
+    {
+        MoveableObject detectedObject = collider.GetComponent<MoveableObject>();
+        if (detectedObject != null)
+        {
+            moveableObject = detectedObject; // Set the detected object as the current moveable object
+            return;
+        }
+    }
+
+    // If no moveable object is detected, clear the reference
+    moveableObject = null;
+}
+
+    void HandleMoveableObjects()
+{
+    if (moveableObject != null)
+    {
+        // Check if the 'M' key is being held down
+        if (Input.GetKey(KeyCode.M) && isGrounded)
+        {
+            // If the offset hasn't been calculated yet, calculate it
+            if (moveableObjectOffset == Vector3.zero)
+            {
+                moveableObjectOffset = moveableObject.transform.position - transform.position;
+            }
+
+            // Move the moveable object to maintain the offset relative to the player
+            moveableObject.transform.position = transform.position + moveableObjectOffset;
+        }
+        else
+        {
+            // Reset the offset when the 'M' key is released
+            moveableObjectOffset = Vector3.zero;
+        }
+    }
+}
 }
