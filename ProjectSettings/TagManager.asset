@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Object
   - Moveable_Object
+  - Portal
   layers:
   - Default
   - TransparentFX

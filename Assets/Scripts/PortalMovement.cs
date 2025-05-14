@@ -25,7 +25,7 @@ public class PortalMovement : MonoBehaviour
         transform.Translate(Vector3.right * horizontalInput * moveSpeed * Time.deltaTime);
 
         // Handle portal behavior when 'X' is pressed
-        if (Input.GetKeyDown(KeyCode.X) && !isPortaling)
+        if (Input.GetKeyDown(KeyCode.X) && !isPortaling && IsNearPortal())
         {
             StartPortalTransition();
         }
@@ -153,5 +153,17 @@ public class PortalMovement : MonoBehaviour
             
         }
     }
+}
+bool IsNearPortal(float checkRange = 2f)
+{
+    Collider[] colliders = Physics.OverlapSphere(transform.position, checkRange);
+    foreach (Collider col in colliders)
+    {
+        if (col.CompareTag("Portal"))
+        {
+            return true;
+        }
+    }
+    return false;
 }
 }
