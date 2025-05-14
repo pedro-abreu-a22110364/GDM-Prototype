@@ -5,6 +5,8 @@ using UnityEngine;
 public class MoveableObject : MonoBehaviour
 {
     private Rigidbody rb; // Reference to the Rigidbody component
+    public bool isMovable = true; // Flag to determine if the object is movable
+    
 
     void Start()
     {
@@ -13,13 +15,36 @@ public class MoveableObject : MonoBehaviour
         rb.isKinematic = true; // Set it to kinematic by default
     }
 
-    // Method to toggle movability
-    public void SetMovable(bool isMovable)
+
+    public bool IsTouchingObject()
     {
-        if (rb != null)
+        Collider[] colliders = Physics.OverlapBox(
+            transform.position,
+            GetComponent<Collider>().bounds.extents * 0.95f, // slightly smaller to avoid self-collision
+            transform.rotation
+        );
+
+        foreach (Collider col in colliders)
         {
-            rb.isKinematic = !isMovable; // If isMovable is false, make it kinematic (non-movable)
-            Debug.Log($"MoveableObject is now {(isMovable ? "movable" : "non-movable")}. Rigidbody.isKinematic: {rb.isKinematic}");
+            if (col.gameObject != this.gameObject &&
+                (col.CompareTag("Object")))
+            {
+                return true;
+            }
         }
+        return false;
     }
+
+    // Getter for isMovable
+    public bool GetIsMovable()
+    {
+        return isMovable;
+    }
+
+    // Setter for isMovable
+    public void SetIsMovable(bool value)
+    {
+        isMovable = value;
+    }
+
 }

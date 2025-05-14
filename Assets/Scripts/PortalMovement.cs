@@ -114,7 +114,11 @@ public class PortalMovement : MonoBehaviour
     if (moveableObject != null)
     {
         // Check if the 'M' key is being held down
-        if (Input.GetKey(KeyCode.M) && isGrounded)
+        if (Input.GetKeyUp(KeyCode.M))
+        {
+            moveableObject.SetIsMovable(true);
+        }
+        if (Input.GetKey(KeyCode.M) && isGrounded && moveableObject.GetIsMovable())
         {
             // If the offset hasn't been calculated yet, calculate it
             if (moveableObjectOffset == Vector3.zero)
@@ -123,12 +127,30 @@ public class PortalMovement : MonoBehaviour
             }
 
             // Move the moveable object to maintain the offset relative to the player
-            moveableObject.transform.position = transform.position + moveableObjectOffset;
+            if (moveableObject.IsTouchingObject()){
+                if(moveableObject.GetIsMovable())
+                {
+                    moveableObject.transform.position = transform.position + 0.98f * moveableObjectOffset;
+                    moveableObject.SetIsMovable(false);
+                    return;
+                }
+                moveableObject.SetIsMovable(false);
+            }
+
+            if(moveableObject.GetIsMovable())
+            {
+                moveableObject.transform.position = transform.position + moveableObjectOffset;
+            }
+            
+            
+            
+            
         }
         else
         {
             // Reset the offset when the 'M' key is released
             moveableObjectOffset = Vector3.zero;
+            
         }
     }
 }
