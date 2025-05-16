@@ -8,6 +8,9 @@ public class Door : MonoBehaviour
     public string sceneToLoad; // Set this in the Inspector for each door
     public float interactionRange = 2f; // How close the player must be
 
+    [SerializeField]
+    private bool isInteractible = true; // Can be set in the Inspector
+
     private Transform playerTransform;
 
     void Start()
@@ -22,7 +25,7 @@ public class Door : MonoBehaviour
 
     void Update()
     {
-        if (playerTransform != null)
+        if (playerTransform != null && isInteractible)
         {
             float distance = Vector3.Distance(transform.position, playerTransform.position);
 
@@ -35,4 +38,16 @@ public class Door : MonoBehaviour
             }
         }
     }
+
+    // Setter for isInteractible
+    public void SetInteractible(bool value)
+    {
+        isInteractible = value;
+    }
+
+    public void Interact(bool value)
+    {
+        SetInteractible(true);
+    }
+
 }

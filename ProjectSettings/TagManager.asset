@@ -9,6 +9,7 @@ TagManager:
   - Moveable_Object
   - Portal
   - Collectible
+  - InventoryChecker
   layers:
   - Default
   - TransparentFX

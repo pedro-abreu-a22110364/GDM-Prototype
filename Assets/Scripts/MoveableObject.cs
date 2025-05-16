@@ -27,7 +27,7 @@ public class MoveableObject : MonoBehaviour
         foreach (Collider col in colliders)
         {
             if (col.gameObject != this.gameObject &&
-                (col.CompareTag("Object")))
+                (col.CompareTag("Object") || col.CompareTag("Moveable_Object")))
             {
                 return true;
             }

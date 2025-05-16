@@ -12,6 +12,7 @@ public class PlayerInteractions : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             TryCollectNearby();
+            TryInteractWithInventoryChecker();
         }
     }
 
@@ -38,6 +39,28 @@ public class PlayerInteractions : MonoBehaviour
                     }
                 }
                 break; // Only interact with the first collectible found
+            }
+        }
+    }
+
+    // Scans nearby for an object with the tag "InventoryChecker" and calls its PlayerInteract() method
+    public void TryInteractWithInventoryChecker()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, checkRadius);
+        foreach (Collider col in colliders)
+        {
+            if (col.CompareTag("InventoryChecker"))
+            {
+                var checker = col.GetComponent<MonoBehaviour>();
+                if (checker != null)
+                {
+                    var method = checker.GetType().GetMethod("PlayerInteract");
+                    if (method != null)
+                    {
+                        method.Invoke(checker, null);
+                    }
+                }
+                break; // Only interact with the first InventoryChecker found
             }
         }
     }

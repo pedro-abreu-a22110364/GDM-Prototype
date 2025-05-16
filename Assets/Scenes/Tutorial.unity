@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -561,6 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: Level_1
   interactionRange: 4
+  isInteractible: 1
 --- !u!1 &666022785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1146,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!65 &1382842373
 BoxCollider:
@@ -1437,8 +1438,8 @@ Transform:
   m_GameObject: {fileID: 1488598358}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.14, y: 6.18, z: -5.42}
-  m_LocalScale: {x: 3, y: 2, z: 0.2}
+  m_LocalPosition: {x: -0.14, y: 7.13, z: -5.42}
+  m_LocalScale: {x: 3, y: 4, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1478,10 +1479,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   portalSpeed: 2
-  jumpForce: 5
+  jumpForce: 8
   platformBelow: {fileID: 281502107}
   platformAbove: {fileID: 1469147975}
-  interactionRange: 10
+  interactionRange: 2
 --- !u!54 &1799715729
 Rigidbody:
   m_ObjectHideFlags: 0

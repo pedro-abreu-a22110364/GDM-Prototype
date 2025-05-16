@@ -9,7 +9,7 @@ public class PortalMovement : MonoBehaviour
     public float jumpForce = 5f; // Force applied for jumping
     public Transform platformBelow; // Reference to the below platform
     public Transform platformAbove; // Reference to the above platform
-    public float interactionRange = 10f; // Range to detect moveable objects
+    public float interactionRange = 1f; // Range to detect moveable objects
 
     private bool isOnBelowPlatform = false; // Tracks which platform the object is on
     private bool isPortaling = false; // Tracks if the object is currently portaling
@@ -17,9 +17,11 @@ public class PortalMovement : MonoBehaviour
     private bool isGrounded = true; // Tracks if the object is on the ground
     private MoveableObject moveableObject; // Reference to the current moveable object
     private Vector3 moveableObjectOffset; // Offset between the player and the moveable object
+    private bool isHandlingMoveableObject = false; // Tracks if the object is being moved
 
     void Update()
     {
+
         // Handle left and right movement
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * horizontalInput * moveSpeed * Time.deltaTime);
@@ -37,7 +39,7 @@ public class PortalMovement : MonoBehaviour
         }
 
         // Detect and handle moveable objects
-        DetectMoveableObject();
+        if (!isHandlingMoveableObject){DetectMoveableObject();}
         HandleMoveableObjects();
 
         // Smoothly move the object during the portal transition
@@ -117,6 +119,11 @@ public class PortalMovement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.M))
         {
             moveableObject.SetIsMovable(true);
+            isHandlingMoveableObject = false;
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            isHandlingMoveableObject = true;
         }
         if (Input.GetKey(KeyCode.M) && isGrounded && moveableObject.GetIsMovable())
         {
