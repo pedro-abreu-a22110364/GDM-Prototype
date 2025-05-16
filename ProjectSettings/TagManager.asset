@@ -8,6 +8,7 @@ TagManager:
   - Object
   - Moveable_Object
   - Portal
+  - Collectible
   layers:
   - Default
   - TransparentFX
