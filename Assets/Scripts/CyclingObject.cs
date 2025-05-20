@@ -41,12 +41,12 @@ public class CyclingObject : MonoBehaviour
         detectionTrigger.enabled = (index == 0);
 }
 
-    void OnTriggerEnter(Collider other)
+    public void OnPlayerTriggerEnter(Collider other)
+{
+    if (other.CompareTag("Player"))
     {
-        if (other.CompareTag("Player") && detectionTrigger != null && other == detectionTrigger)
-        {
-            Debug.Log("Player caught! Resetting scene.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        Debug.Log("Player caught! Resetting scene.");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+}
 }
