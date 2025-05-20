@@ -14,10 +14,12 @@ public class PortalMovement : MonoBehaviour
     private bool isOnBelowPlatform = false; // Tracks which platform the object is on
     private bool isPortaling = false; // Tracks if the object is currently portaling
     private Vector3 targetPosition; // Target position for the portal transition
-    private bool isGrounded = true; // Tracks if the object is on the ground
+    public bool isGrounded = true; // Tracks if the object is on the ground
     private MoveableObject moveableObject; // Reference to the current moveable object
     private Vector3 moveableObjectOffset; // Offset between the player and the moveable object
     private bool isHandlingMoveableObject = false; // Tracks if the object is being moved
+
+    public bool isTelekinetic = true;
 
     void Update()
     {
@@ -113,6 +115,9 @@ public class PortalMovement : MonoBehaviour
 
     void HandleMoveableObjects()
 {
+    if (!isTelekinetic) // Prevent moving objects if not telekinetic
+            return;
+    
     if (moveableObject != null)
     {
         // Check if the 'M' key is being held down
