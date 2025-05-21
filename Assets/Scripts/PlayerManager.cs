@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     public CameraFollow cameraFollow; // Reference to your CameraFollow script
 
     private GameObject activePlayer;
+    private bool isTwoPlayerMode = false;
 
     void Start()
     {
@@ -15,6 +16,9 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
+        // Only allow switch if two-player mode is enabled
+        if (!isTwoPlayerMode) return;
+
         // Only allow switch if the active player is grounded
         PortalMovement activeMovement = activePlayer.GetComponent<PortalMovement>();
         if (Input.GetKeyDown(KeyCode.P) && activeMovement != null && activeMovement.isGrounded)
@@ -32,15 +36,26 @@ public class PlayerManager : MonoBehaviour
 
         // Enable input on the active player, disable on the other
         player1.GetComponent<PortalMovement>().enabled = (player == player1);
-        player2.GetComponent<PortalMovement>().enabled = (player == player2);
+        if (player2 != null)
+            player2.GetComponent<PortalMovement>().enabled = (player == player2);
 
         // Set Rigidbody kinematic state: inactive player is kinematic, active is not
         Rigidbody rb1 = player1.GetComponent<Rigidbody>();
-        Rigidbody rb2 = player2.GetComponent<Rigidbody>();
+        if (player2 != null)
+        {
+            Rigidbody rb2 = player2.GetComponent<Rigidbody>();
+            if (rb2 != null) rb2.isKinematic = (player != player2);
+        }
         if (rb1 != null) rb1.isKinematic = (player != player1);
-        if (rb2 != null) rb2.isKinematic = (player != player2);
 
         // Update camera follow target
         cameraFollow.player = activePlayer.transform;
+    }
+
+    public void SetPlayer2(GameObject newPlayer2)
+    {
+        player2 = newPlayer2;
+        isTwoPlayerMode = true;
+        SetActivePlayer(activePlayer);
     }
 }
