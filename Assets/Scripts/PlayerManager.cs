@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
     public CameraFollow cameraFollow; // Reference to your CameraFollow script
 
     private GameObject activePlayer;
-    private bool isTwoPlayerMode = false;
+    [SerializeField] private bool isTwoPlayerMode = false;
 
     void Start()
     {
