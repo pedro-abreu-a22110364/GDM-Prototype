@@ -546,9 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d990edbc92c30b44b094938048756f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Level_1
-  interactionRange: 4
-  isInteractible: 1
+  direction: 1
 --- !u!65 &265575080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3089,9 +3087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d990edbc92c30b44b094938048756f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Level_2
-  interactionRange: 4
-  isInteractible: 0
+  direction: 0
 --- !u!65 &1938399173
 BoxCollider:
   m_ObjectHideFlags: 0
