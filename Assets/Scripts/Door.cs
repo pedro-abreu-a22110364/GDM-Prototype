@@ -5,7 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
-    public string sceneToLoad; // Set this in the Inspector for each door
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            SceneController.instance.NextLevel();
+        }
+    }
+
+    /*public string sceneToLoad; // Set this in the Inspector for each door
     public float interactionRange = 2f; // How close the player must be
 
     [SerializeField]
@@ -48,6 +56,6 @@ public class Door : MonoBehaviour
     public void Interact(bool value)
     {
         SetInteractible(true);
-    }
+    }*/
 
 }

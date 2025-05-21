@@ -63,7 +63,7 @@ public class InventoryChecker : MonoBehaviour
         if (door != null && HasRequiredItemsFromInspector())
         {
             //Doesn't have to be a door, can be any object
-            door.Interact(true);
+            //door.Interact(true);
         }
     }
 }
