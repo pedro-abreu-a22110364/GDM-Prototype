@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UponInteractSpawnObject : MonoBehaviour
+public class UponInteractSpawnObjectPlayer : MonoBehaviour
 {
     [SerializeField] private GameObject objectToSpawn; // Assign the prefab in the Inspector
     [SerializeField] private float interactRange = 2f; // Range to interact

@@ -14,7 +14,7 @@ public class TeleportUponInteract : MonoBehaviour
         foreach (GameObject player in players)
         {
             float distance = Vector3.Distance(player.transform.position, transform.position);
-            if (distance <= interactRange && Input.GetKeyDown(KeyCode.E))
+            if (distance <= interactRange && Input.GetKeyDown(KeyCode.X))
             {
                 player.transform.position = teleportTarget.position;
                 break; // Only teleport the first player found in range

@@ -6,13 +6,15 @@ public class MoveableObject : MonoBehaviour
 {
     private Rigidbody rb; // Reference to the Rigidbody component
     public bool isMovable = true; // Flag to determine if the object is movable
+
+    [SerializeField] private bool isKinematic = true;
     
 
     void Start()
     {
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true; // Set it to kinematic by default
+        rb.isKinematic = isKinematic; // Set the Rigidbody to kinematic based on the flag
     }
 
 
