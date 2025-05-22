@@ -9,6 +9,9 @@ public class InventoryChecker : MonoBehaviour
 
     // Reference to the Door object
     [SerializeField] private Door door;
+    [SerializeField] private GameObject greenLed;
+    [SerializeField] private GameObject redLed;
+    [SerializeField] private GameObject yellowLed;
 
     // String input in the Inspector, e.g. "a,b,c"
     [SerializeField] private string requiredItemsString;
@@ -63,7 +66,10 @@ public class InventoryChecker : MonoBehaviour
         if (door != null && HasRequiredItemsFromInspector())
         {
             //Doesn't have to be a door, can be any object
-            //door.Interact(true);
+            door.GetComponent<BoxCollider>().enabled = true;
+            greenLed.SetActive(true);
+            redLed.SetActive(true);
+            yellowLed.SetActive(true);
         }
     }
 }

@@ -9,7 +9,7 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && foreignObject != null)
+        if ((other.CompareTag("Player") || other.CompareTag("Moveable_Object")) && foreignObject != null)
         {
             // Try to call Interact() on the foreign object
             var interactable = foreignObject.GetComponent<MonoBehaviour>();
